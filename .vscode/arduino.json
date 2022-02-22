@@ -1,0 +1,6 @@
+{
+    "board": "arduino:avr:megaADK",
+    "sketch": "packingSoftware.ino",
+    "programmer": "arduino:avrispmkii",
+    "port": "COM3"
+}
