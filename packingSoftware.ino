@@ -2,23 +2,33 @@
 /*=================================================================================================================*/
 /*** Author : Amr Mostafa      (Amr_MAM)                                                                         ***/
 /*** Title  : Main program file for the controller of the Packing System                                         ***/
-/*** Date   : 22Feb2022                                                                                          ***/
-/*** Version: V01                                                                                                ***/
+/*** Date   : 14Mar2022                                                                                          ***/
+/*** Version: V03                                                                                                ***/
 /*=================================================================================================================*/
 
 #include "AM_PIN_INTERFACE.h"
 
-bool dir = HIGH;
-
 void setup()
 {
   Serial.begin(9600);
+
+  /*==============[Settings of Pins]===============*/
+  AmSetPin_As_Output(aPinMotorX_Eng);
+  AmSetPin_As_Output(aPinMotorX_Dir);
+  AmSetPin_As_Output(aPinMotorX_Step);
+
+  AmSetPin_As_Output(aPinMotorY_Eng);
   AmSetPin_As_Output(aPinMotorY_Dir);
   AmSetPin_As_Output(aPinMotorY_Step);
-  AmSetPin_As_Output(aPinMotorY_Eng);
 
-  AmSetPin_As_Output(13);
+  AmSetPin_As_Output(aPinMotorZ_Eng);
+  AmSetPin_As_Output(aPinMotorZ_Dir);
+  AmSetPin_As_Output(aPinMotorZ_Step);
 
+  AmSetPin_As_Output(aPinMotorGr_Eng);
+  AmSetPin_As_Output(aPinMotorGr_Dir);
+  AmSetPin_As_Output(aPinMotorGr_Step);
+  
   AmSetPin_As_InputPullUp(aPinLS1);
   AmSetPin_As_InputPullUp(aPinLS2);
   AmSetPin_As_InputPullUp(aPinLS3);
@@ -30,46 +40,115 @@ void setup()
 
 void loop()
 {
-  testServer();
-  // AmClrPin(aPinMotorY_Eng);
-  // AmSetPinState(aPinMotorY_Dir, dir);
-  // for (int i = 0; i <= 800; i++)
-  // {
-  //   AmSetPin(aPinMotorY_Step);
-  //   delayMicroseconds(500);
-  //   AmClrPin(aPinMotorY_Step);
-  //   delayMicroseconds(500);
-  // }
-
-  // dir = !dir;
+  listenToSerialCommand();
   delay(100);
 }
 
-void testLS(){
-  if (!AmGetPinState(aPinLS1))         Serial.println(1);
-  else if(!AmGetPinState(aPinLS2))     Serial.println(1);  
-  else if(!AmGetPinState(aPinLS3))     Serial.println(1);  
-  else if(!AmGetPinState(aPinLS4))     Serial.println(1);
-  else if(!AmGetPinState(aPinLS5))     Serial.println(1);
-  else if(!AmGetPinState(aPinLS6))     Serial.println(1);
-  else if(!AmGetPinState(aPinLS7))     Serial.println(1);
-  else                                 Serial.println(6);
-}
-void testServer(){
+void listenToSerialCommand(){
   u8 cmd =  Serial.read();
   switch (cmd)
   {
-  case 'A':
-    AmSetPin(aPinMotorY_Dir);
-    AmClrPin(aPinMotorY_Eng);
-    Serial.println("LED is ON");
+  case 'A':  // X-Axis Right
+    Serial.println("Motor_X-Axis Starts to move right");
+    motorX(500, true);
+    Serial.println("Motor_X-Axis Finished moving");
     break;  
-  case 'B':
-    AmClrPin(aPinMotorY_Dir);
-    AmSetPin(aPinMotorY_Eng); 
-    Serial.println("LED is OFF");
+
+  case 'B':  // X-Axis Left
+    Serial.println("Motor_X-Axis Starts to move left");
+    motorX(500, false);
+    Serial.println("Motor_X-Axis Finished moving");
+    break;   
+
+  case 'C':  // Y-Axis In
+    Serial.println("Motor_Y-Axis Starts to move in");
+    motorY(200, true);
+    Serial.println("Motor_Y-Axis Finished moving");
     break;  
-  default:
+
+  case 'D':  // Y-Axis Out
+    Serial.println("Motor_Y-Axis Starts to move out");
+    motorY(200, false);
+    Serial.println("Motor_Y-Axis Finished moving");
+    break;      
+
+  case 'E':  // Z-Axis Up
+    Serial.println("Motor_Z-Axis Starts to move up");
+    motorZ(200, true);
+    Serial.println("Motor_Z-Axis Finished moving");
+    break;  
+
+  case 'F':  // Z-Axis Down
+    Serial.println("Motor_Z-Axis Starts to move down");
+    motorZ(200, false);
+    Serial.println("Motor_Z-Axis Finished moving");
+    break;      
+
+  case 'G':  // GripperMotor holding
+    Serial.println("Motor_Gripper Starts to hold the bottle");
+    motorGripper(50, true);
+    Serial.println("Motor_Gripper Finished moving");
+    break;  
+
+  case 'H':  // GripperMotor open
+    Serial.println("Motor_Gripper Starts to take off the bottle");
+    motorGripper(50, false);
+    Serial.println("Motor_Gripper Finished moving");
+    break;  
+
+ default:
     break;
+  }
+}
+
+void motorX(u16 u16_steps, bool direction){
+  // Todo: do not forget to implement the limit switch conditions
+  AmClrPin(aPinMotorX_Eng);
+  AmSetPinState(aPinMotorX_Dir, direction);
+  for (u16 i = 0; i <= u16_steps; i++)
+  {
+    AmSetPin(aPinMotorX_Step);
+    delayMicroseconds(500);
+    AmClrPin(aPinMotorX_Step);
+    delayMicroseconds(500);
+  }
+}
+
+void motorY(u16 u16_steps, bool direction){
+  // Todo: do not forget to implement the limit switch conditions
+  AmClrPin(aPinMotorY_Eng);
+  AmSetPinState(aPinMotorY_Dir, direction);
+  for (u16 i = 0; i <= u16_steps; i++)
+  {
+    AmSetPin(aPinMotorY_Step);
+    delayMicroseconds(500);
+    AmClrPin(aPinMotorY_Step);
+    delayMicroseconds(500);
+  }
+}
+
+void motorZ(u16 u16_steps, bool direction){
+  // Todo: do not forget to implement the limit switch conditions
+  AmClrPin(aPinMotorZ_Eng);
+  AmSetPinState(aPinMotorZ_Dir, direction);
+  for (u16 i = 0; i <= u16_steps; i++)
+  {
+    AmSetPin(aPinMotorZ_Step);
+    delayMicroseconds(500);
+    AmClrPin(aPinMotorZ_Step);
+    delayMicroseconds(500);
+  }
+}
+
+void motorGripper(u16 u16_steps, bool direction){
+  // Todo: do not forget to implement the limit switch conditions
+  AmClrPin(aPinMotorGr_Eng);
+  AmSetPinState(aPinMotorGr_Dir, direction);
+  for (u16 i = 0; i <= u16_steps; i++)
+  {
+    AmSetPin(aPinMotorGr_Step);
+    delayMicroseconds(500);
+    AmClrPin(aPinMotorGr_Step);
+    delayMicroseconds(500);
   }
 }
