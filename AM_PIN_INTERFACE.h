@@ -24,7 +24,7 @@ typedef unsigned long long int                         u64;
 #define AmSetPin(pin)                                  digitalWrite(pin, HIGH)
 #define AmClrPin(pin)                                  digitalWrite(pin, LOW)
 #define AmSetPinState(pin, state)                      digitalWrite(pin, state)
-#define AmSetPinValue(pin, Value)                      analogWrite(pin, value)
+#define AmSetPinValue(pin, value)                      analogWrite(pin, value)
 
 #define AmGetPinState(pin)                             (bool)digitalRead(pin)
 #define AmGetPinValue(pin)                             (int)analogRead(pin)
