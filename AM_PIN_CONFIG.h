@@ -3,7 +3,7 @@
 /*** Author : Amr Mostafa         (Amr_MAM)                                                                      ***/
 /*** Title  : Pin mapping (pin information)                                                                      ***/
 /*** Date   : 05Jul2022                                                                                          ***/
-/*** Version: V03                                                                                                ***/
+/*** Version: V06                                                                                                ***/
 /*=================================================================================================================*/
 
 #ifndef AM_PIN_CONFIGURATION
