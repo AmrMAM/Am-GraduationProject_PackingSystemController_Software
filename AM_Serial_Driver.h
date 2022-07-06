@@ -1,15 +1,16 @@
 /*=================================================================================================================*/
 /*** Author : Amr Mostafa      (Amr_MAM)                                                                         ***/
 /*** Title  : this file contains the Serial listening and filtering functions                                    ***/
-/*** Date   : 05Jul2022                                                                                          ***/
-/*** Version: V06                                                                                                ***/
+/*** Date   : 06Jul2022                                                                                          ***/
+/*** Version: V07                                                                                                ***/
 /*=================================================================================================================*/
+
+#include "AM_Include_All.h"
 
 #ifndef AM_Serial_Driver
 #define AM_Serial_Driver
 
 #include "AM_StepperDriver_Functions.h"
-#include "AM_Sequence_Algorithm.h"
 
 void listenToSerialCommand()
 {
@@ -71,6 +72,7 @@ void listenToSerialCommand()
         break;
 
     case 'I':
+        limitSwRead();
         Serial.print(LS1);
         Serial.print(' ');
         Serial.print(LS2);
@@ -86,19 +88,19 @@ void listenToSerialCommand()
         Serial.println(LS7);
         break;
 
-    case 29:  // Check X-axis mismatch
+    case 'J':  // Check X-axis mismatch
         check_X_mismatch();
         break;
 
-    case 30:  // Go Home
+    case 'K':  // Go Home
         goHome();
         break;
 
-    case 31:  // put intact bottle (packing)
+    case 'L':  // put intact bottle (packing)
         putIntactBottle();
         break;
 
-    case 32:  // put faulty bottle (throw out)
+    case 'M':  // put faulty bottle (throw out)
         putFaultyBottle();
         break;
 

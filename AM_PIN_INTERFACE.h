@@ -2,8 +2,8 @@
 /*=================================================================================================================*/
 /*** Author : Amr Mostafa         (Amr_MAM)                                                                      ***/
 /*** Title  : Pin mapping (pin information) & Global Pin Methods                                                 ***/
-/*** Date   : 05Jul2022                                                                                          ***/
-/*** Version: V06                                                                                                ***/
+/*** Date   : 06Jul2022                                                                                          ***/
+/*** Version: V07                                                                                                ***/
 /*=================================================================================================================*/
 
 #ifndef AM_PIN_INTERFACE
@@ -48,6 +48,11 @@ void setPinsConfiguration(){
     pinMode(aPinLS5, INPUT_PULLUP);
     pinMode(aPinLS6, INPUT_PULLUP);
     pinMode(aPinLS7, INPUT_PULLUP);
+
+    digitalWrite(aPinMotorGr_Eng, HIGH);
+    digitalWrite(aPinMotorX_Eng, HIGH);
+    digitalWrite(aPinMotorY_Eng, HIGH);
+    digitalWrite(aPinMotorZ_Eng, HIGH);
 }
 
 #endif

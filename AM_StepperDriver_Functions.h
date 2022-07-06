@@ -1,15 +1,15 @@
 /*=================================================================================================================*/
 /*** Author : Amr Mostafa      (Amr_MAM)                                                                         ***/
 /*** Title  : this file contains the motion functions related to the stepper drivers                             ***/
-/*** Date   : 05Jul2022                                                                                          ***/
-/*** Version: V06                                                                                               ***/
+/*** Date   : 06Jul2022                                                                                          ***/
+/*** Version: V07                                                                                                ***/
 /*=================================================================================================================*/
 
+#include "AM_Include_All.h"
 
 #ifndef AM_StepperDriver_Functions
 #define AM_StepperDriver_Functions
 
-#include "AM_PIN_INTERFACE.h"
 #include "AM_LimitSwitches_Driver.h"
 
 /// deprecated with the [motorX_Until_Limit] function used instead
@@ -94,6 +94,7 @@ void motorZ_Until_Limit(bool direction){
     digitalWrite(aPinMotorZ_Step, LOW);
     delayMicroseconds(700);
     limitSwRead();
+    digitalWrite(aPinMotorZ_Dir, direction);
   }
   digitalWrite(aPinMotorZ_Eng, HIGH);
 

@@ -2,12 +2,12 @@
 /*=================================================================================================================*/
 /*** Author : Amr Mostafa      (Amr_MAM)                                                                         ***/
 /*** Title  : Main program file for the controller of the Packing System                                         ***/
-/*** Date   : 05Jul2022                                                                                          ***/
-/*** Version: V06                                                                                                ***/
+/*** Date   : 06Jul2022                                                                                          ***/
+/*** Version: V07                                                                                                ***/
 /*=================================================================================================================*/
 
-#include "AM_PIN_INTERFACE.h"
-#include "AM_Serial_Driver.h" 
+#include "Arduino.h"
+#include "AM_Include_All.h"
 
 void setup()
 {
@@ -19,6 +19,6 @@ void setup()
 void loop()
 {
   listenToSerialCommand();
+  limitSwRead();
   delay(100);
 }
-

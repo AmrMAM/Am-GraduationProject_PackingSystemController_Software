@@ -1,14 +1,16 @@
 /*=================================================================================================================*/
 /*** Author : Amr Mostafa      (Amr_MAM)                                                                         ***/
 /*** Title  : this file contains the Limit Switches Driver                                                       ***/
-/*** Date   : 05Jul2022                                                                                          ***/
-/*** Version: V06                                                                                                ***/
+/*** Date   : 06Jul2022                                                                                          ***/
+/*** Version: V07                                                                                                ***/
 /*=================================================================================================================*/
+
+#include "AM_Include_All.h"
+#include "AM_PIN_INTERFACE.h"
 
 #ifndef AM_LimitSwitches_Driver
 #define AM_LimitSwitches_Driver
 
-#include "AM_PIN_INTERFACE.h"
 
 int LS1;
 int LS2;

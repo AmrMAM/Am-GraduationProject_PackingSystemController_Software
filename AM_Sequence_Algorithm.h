@@ -1,10 +1,11 @@
 /*=================================================================================================================*/
 /*** Author : Amr Mostafa      (Amr_MAM)                                                                         ***/
 /*** Title  : this file contains the motion Algorithm functions                                                  ***/
-/*** Date   : 05Jul2022                                                                                          ***/
-/*** Version: V06                                                                                                ***/
+/*** Date   : 06Jul2022                                                                                          ***/
+/*** Version: V07                                                                                                ***/
 /*=================================================================================================================*/
 
+#include "AM_Include_All.h"
 
 #ifndef AM_Sequence_Algorithm
 #define AM_Sequence_Algorithm
@@ -17,27 +18,8 @@ void goHome(bool openGripper = true){
     if (openGripper)
     {
         Serial.println(46);     // Gripper indication (Open)
-        motorGripper(100, false);   // open Gripper   
+        motorGripper(150, true);   // open Gripper   
     }
-
-    Serial.println(45);     // Moving indication (Z-) 
-    motorZ_Until_Limit(false);  // Z up (Z-)
-
-    Serial.println(41);     // Moving indication (X+) 
-    motorX_Until_Limit(true);   // X +
-
-    Serial.println(43);     // Moving indication (Y+) 
-    motorY_Until_Limit(true);   // Y + 
-
-    Serial.println(49);     // Ready for the new command
-}
-
-void putFaultyBottle(){
-    Serial.println(44);     // Moving indication (Z+) 
-    motorZ_Until_Limit(true);  // Z down (Z+)
-
-    Serial.println(47);     // Gripper indication (Holding)
-    motorGripper(100, true);   // close Gripper
 
     Serial.println(45);     // Moving indication (Z-) 
     motorZ_Until_Limit(false);  // Z up (Z-)
@@ -48,11 +30,30 @@ void putFaultyBottle(){
     Serial.println(42);     // Moving indication (Y-) 
     motorY_Until_Limit(false);   // Y - 
 
+    Serial.println(49);     // Ready for the new command
+}
+
+void putFaultyBottle(){
+    Serial.println(44);     // Moving indication (Z+) 
+    motorZ_Until_Limit(true);  // Z down (Z+)
+
+    Serial.println(47);     // Gripper indication (Holding)
+    motorGripper(150, false);   // close Gripper
+
+    Serial.println(45);     // Moving indication (Z-) 
+    motorZ_Until_Limit(false);  // Z up (Z-)
+
+    Serial.println(41);     // Moving indication (X+) 
+    motorX_Until_Limit(true);   // X +
+
+    Serial.println(43);     // Moving indication (Y+) 
+    motorY_Until_Limit(true);   // Y + 
+
     Serial.println(44);     // Moving indication (Z+) 
     motorZ_Until_Limit(true);  // Z down (Z+)
 
     Serial.println(46);     // Gripper indication (Open)
-    motorGripper(100, false);   // open Gripper
+    motorGripper(150, true);   // open Gripper
 
     Serial.println(48);     // Indication (Process is finshed)
 
@@ -64,19 +65,19 @@ void putIntactBottle(){
     motorZ_Until_Limit(true);  // Z down (Z+)
 
     Serial.println(47);     // Gripper indication (Holding)
-    motorGripper(100, true);   // close Gripper
+    motorGripper(150, false);   // close Gripper
 
     Serial.println(45);     // Moving indication (Z-) 
     motorZ_Until_Limit(false);  // Z up (Z-)
 
-    Serial.println(40);     // Moving indication (X-) 
-    motorX_Until_Limit(false);   // X -
+    Serial.println(41);     // Moving indication (X+) 
+    motorX_Until_Limit(true);   // X +
 
     Serial.println(44);     // Moving indication (Z+) 
     motorZ_Until_Limit(true);  // Z down (Z+)
 
     Serial.println(46);     // Gripper indication (Open)
-    motorGripper(100, false);   // open Gripper
+    motorGripper(150, true);   // open Gripper
 
     Serial.println(48);     // Indication (Process is finshed)
 
